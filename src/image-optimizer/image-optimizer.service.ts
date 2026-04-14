@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import * as path from 'path';
 import sharp from 'sharp';
 import {
@@ -10,6 +10,9 @@ import type { OptimizedImageResult } from './types/optimize-image-result';
 
 @Injectable()
 export class ImageOptimizerService {
+
+  private logger = new Logger(ImageOptimizerService.name)
+
   async optimizeImages(
     files: Express.Multer.File[],
   ): Promise<OptimizedImageResult[]> {
@@ -19,7 +22,6 @@ export class ImageOptimizerService {
   private async optimizeOne(
     file: Express.Multer.File,
   ): Promise<OptimizedImageResult> {
-    console.log(file)
     const input = file.buffer;
     if (!input?.length) {
       throw new BadRequestException(
@@ -41,7 +43,7 @@ export class ImageOptimizerService {
         });
 
       const webpBuffer = await pipeline.toBuffer();
-        console.log("imagen optimizada", file.originalname)
+      this.logger.debug("Imagen optimizada: ", file.originalname, new Date())
       return {
         originalName: file.originalname,
         filename,
