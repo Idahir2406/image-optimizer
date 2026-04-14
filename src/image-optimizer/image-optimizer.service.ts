@@ -19,6 +19,7 @@ export class ImageOptimizerService {
   private async optimizeOne(
     file: Express.Multer.File,
   ): Promise<OptimizedImageResult> {
+    console.log(file)
     const input = file.buffer;
     if (!input?.length) {
       throw new BadRequestException(
@@ -40,7 +41,7 @@ export class ImageOptimizerService {
         });
 
       const webpBuffer = await pipeline.toBuffer();
-
+        console.log("imagen optimizada", file.originalname)
       return {
         originalName: file.originalname,
         filename,
