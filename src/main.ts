@@ -8,6 +8,7 @@ const allowedOrigins = [
   'https://dashboard.viajes4patas.com',
   'https://www.viajes4patas.com',
   'https://viajes4patas.com',
+  'http://localhost'
 ];
 
 async function bootstrap() {
