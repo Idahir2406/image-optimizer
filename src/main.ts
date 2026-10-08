@@ -7,6 +7,7 @@ const allowedOrigins = [
   'http://46.225.229.161:5173',
   'https://dashboard.viajes4patas.com',
   'https://www.viajes4patas.com',
+  "https://lightgoldenrodyellow-raven-823446.hostingersite.com",
   'https://viajes4patas.com',
   'http://localhost'
 ];
