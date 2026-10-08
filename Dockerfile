@@ -1,20 +1,20 @@
-FROM node:20-alpine AS development-dependencies-env
+FROM node:22-alpine AS development-dependencies-env
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN corepack enable && pnpm install --frozen-lockfile
 
-FROM node:20-alpine AS build-env
+FROM node:22-alpine AS build-env
 WORKDIR /app
 COPY . .
 COPY --from=development-dependencies-env /app/node_modules /app/node_modules
 RUN corepack enable && pnpm run build
 
-FROM node:20-alpine AS production-dependencies-env
+FROM node:22-alpine AS production-dependencies-env
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN corepack enable && pnpm install --prod --frozen-lockfile
 
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 ENV NODE_ENV=production
 COPY package.json pnpm-lock.yaml ./
